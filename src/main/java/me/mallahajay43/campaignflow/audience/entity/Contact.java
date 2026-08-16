@@ -12,7 +12,15 @@ import java.util.Map;
 import java.util.UUID;
 
 @Entity
-@Table(name = "contacts")
+@Table(
+    name = "contacts",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_contacts_tenant_email", columnNames = {"tenant_id", "email"})
+    },
+    indexes = {
+        @Index(name = "idx_contacts_tenant", columnList = "tenant_id")
+    }
+)
 @Getter
 @Setter
 @Builder

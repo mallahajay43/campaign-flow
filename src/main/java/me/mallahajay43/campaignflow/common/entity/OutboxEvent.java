@@ -1,16 +1,13 @@
-package me.mallahajay43.campaignflow.audience.entity;
+package me.mallahajay43.campaignflow.common.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.mallahajay43.campaignflow.common.entity.BaseEntity;
 import me.mallahajay43.campaignflow.common.enums.EventAggregateType;
 import me.mallahajay43.campaignflow.common.enums.OutboxStatus;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import tools.jackson.databind.JsonNode;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
@@ -53,5 +50,5 @@ public class OutboxEvent extends BaseEntity {
     @Column(length = 1000)
     private String lastError;
 
-    private LocalDateTime publishedAt;
+    private Instant publishedAt;
 }

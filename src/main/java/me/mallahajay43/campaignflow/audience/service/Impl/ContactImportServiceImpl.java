@@ -55,7 +55,7 @@ public class ContactImportServiceImpl implements ContactImportService{
         } catch (Exception exception) {
             try {
                 // Safe File deletion on failed create.
-                fileStorage.delete(storedFile.bucket(), storedFile.objectKey());
+                fileStorage.delete(storedFile.objectKey());
             } catch (Exception cleanupException) {
                 log.error("FILE_IMPORT: Failed to delete file {}", safeFileName);
             }

@@ -4,9 +4,12 @@ import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
+import io.minio.errors.ErrorResponseException;
 import lombok.RequiredArgsConstructor;
 import me.mallahajay43.campaignflow.common.config.MinioProperties;
 import me.mallahajay43.campaignflow.common.exceptions.FileStorageException;
+import me.mallahajay43.campaignflow.common.exceptions.ImportFileNotFoundException;
+import me.mallahajay43.campaignflow.common.exceptions.ImportStorageException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,31 +48,36 @@ public class MinioFileStorage implements FileStorage {
     }
 
     @Override
-    public InputStream download(String bucket, String objectKey) {
+    public InputStream download(String objectKey) {
         try {
             return minioClient.getObject(
                     GetObjectArgs.builder()
-                            .bucket(bucket)
+                            .bucket(properties.bucket())
                             .object(objectKey)
                             .build()
             );
 
+        } catch (ErrorResponseException exception) {
+            if ("NoSuchKey".equals(exception.errorResponse().code())) {
+                throw new ImportFileNotFoundException(objectKey, exception);
+            }
+            throw new ImportStorageException("Could not open import file", exception);
         } catch (Exception exception) {
-            throw new FileStorageException("Unable to download file", exception);
+            throw new ImportStorageException("Could not open import file", exception);
         }
     }
 
     @Override
-    public void delete(String bucket, String objectKey) {
+    public void delete(String objectKey) {
         try {
             minioClient.removeObject(
                 RemoveObjectArgs.builder()
-                    .bucket(bucket)
+                    .bucket(properties.bucket())
                     .object(objectKey)
                     .build()
             );
         } catch (Exception exception) {
-            throw new FileStorageException("Unable to delete file", exception);
+            throw new ImportStorageException("Unable to delete file", exception);
         }
     }
 }

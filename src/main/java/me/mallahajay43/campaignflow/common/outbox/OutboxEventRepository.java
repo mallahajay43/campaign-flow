@@ -1,7 +1,6 @@
-package me.mallahajay43.campaignflow.audience.repository;
+package me.mallahajay43.campaignflow.common.outbox;
 
-import me.mallahajay43.campaignflow.audience.entity.ContactImportFile;
-import me.mallahajay43.campaignflow.audience.entity.OutboxEvent;
+import me.mallahajay43.campaignflow.common.entity.OutboxEvent;
 import me.mallahajay43.campaignflow.common.enums.OutboxStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

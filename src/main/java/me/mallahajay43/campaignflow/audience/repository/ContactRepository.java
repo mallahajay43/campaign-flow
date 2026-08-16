@@ -1,6 +1,7 @@
 package me.mallahajay43.campaignflow.audience.repository;
 
 import me.mallahajay43.campaignflow.audience.entity.Contact;
+import me.mallahajay43.campaignflow.common.enums.ContactStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,6 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
     Page<Contact> findAllByTenantId(UUID tenantId, Pageable pageable);
 
     boolean existsByEmailIgnoreCaseAndTenantId(String email, UUID tenantId);
+
+    Page<Contact> findAllByTenantIdAndStatus(UUID tenantId, ContactStatus status, Pageable pageable);
 }

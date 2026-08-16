@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.mallahajay43.campaignflow.common.entity.BaseEntity;
 import me.mallahajay43.campaignflow.common.enums.ImportStatus;
-import me.mallahajay43.campaignflow.common.enums.SuppressionReason;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -37,12 +35,14 @@ public class ContactImport extends BaseEntity {
     @Column(name = "file_size", nullable = false)
     private long fileSize;
 
+    @Column(length = 200)
+    private UUID leaseOwner;
+
+    private Instant leaseUntil;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ImportStatus status;
-
-    @Column(name = "total_records", nullable = false)
-    private long totalRecords;
 
     @Column(name = "processed_rows", nullable = false)
     private long processedRows;
@@ -53,15 +53,12 @@ public class ContactImport extends BaseEntity {
     @Column(name = "failed_count", nullable = false)
     private long failedCount;
 
-    @Column(name = "skipped_count", nullable = false)
-    private long skippedCount;
-
     @Column(name = "error_message")
     private String errorMessage;
 
     @Column(name = "started_at")
-    private LocalDateTime startedAt;
+    private Instant startedAt;
 
     @Column(name = "completed_at")
-    private LocalDateTime completedAt;
+    private Instant completedAt;
 }

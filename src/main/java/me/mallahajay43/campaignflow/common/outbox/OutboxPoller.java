@@ -1,9 +1,8 @@
-package me.mallahajay43.campaignflow.audience.outbox;
+package me.mallahajay43.campaignflow.common.outbox;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.mallahajay43.campaignflow.audience.entity.OutboxEvent;
-import me.mallahajay43.campaignflow.audience.repository.OutboxEventRepository;
+import me.mallahajay43.campaignflow.common.entity.OutboxEvent;
 import me.mallahajay43.campaignflow.common.config.KafkaAppProperties;
 import me.mallahajay43.campaignflow.common.enums.OutboxStatus;
 import org.springframework.kafka.core.KafkaTemplate;

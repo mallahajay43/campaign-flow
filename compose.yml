@@ -96,6 +96,13 @@ services:
       CONTROL_CENTER_UI_LABEL: Razorpay Clone Kafka
     restart: unless-stopped
 
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: campaignflow-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
 
 volumes:
   campaignflow-postgres-data:

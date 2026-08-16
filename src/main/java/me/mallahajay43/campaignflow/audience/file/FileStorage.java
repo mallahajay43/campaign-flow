@@ -11,13 +11,7 @@ public interface FileStorage {
             MultipartFile file
     );
 
-    InputStream download(
-            String bucket,
-            String objectKey
-    );
+    InputStream download(String objectKey);
 
-    void delete(
-            String bucket,
-            String objectKey
-    );
+    void delete(String objectKey);
 }

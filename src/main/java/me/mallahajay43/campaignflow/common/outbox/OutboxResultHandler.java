@@ -1,13 +1,12 @@
-package me.mallahajay43.campaignflow.audience.outbox;
+package me.mallahajay43.campaignflow.common.outbox;
 
 import lombok.RequiredArgsConstructor;
-import me.mallahajay43.campaignflow.audience.entity.OutboxEvent;
-import me.mallahajay43.campaignflow.audience.repository.OutboxEventRepository;
+import me.mallahajay43.campaignflow.common.entity.OutboxEvent;
 import me.mallahajay43.campaignflow.common.enums.OutboxStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class OutboxResultHandler {
     @Transactional
     public void handleEventPublished(OutboxEvent event) {
         event.setStatus(OutboxStatus.PUBLISHED);
-        event.setPublishedAt(LocalDateTime.now());
+        event.setPublishedAt(Instant.now());
         outboxEventRepository.save(event);
     }
 

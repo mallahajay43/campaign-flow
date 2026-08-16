@@ -11,26 +11,27 @@ public class TimezoneValidator
         implements ConstraintValidator<ValidTimezone, String> {
 
     @Override
-    public boolean isValid(
-            String value,
-            ConstraintValidatorContext context
-    ) {
-        // null is valid for a PATCH request because the field may be omitted
+    public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
 
-        if (value.isBlank()) {
+        String trimmed = value.trim();
+
+        if (trimmed.isBlank()) {
             return false;
         }
 
         try {
-            ZoneId zoneId = ZoneId.of(value.trim());
+            ZoneId zoneId = ZoneId.of(trimmed);
 
-            return !(zoneId instanceof ZoneOffset)
-                    && value.trim().contains("/");
+            // Explicitly allow "UTC" or check for regional format
+            return "UTC".equalsIgnoreCase(trimmed)
+                    || (!(zoneId instanceof ZoneOffset) && trimmed.contains("/"));
+
         } catch (DateTimeException ex) {
             return false;
         }
     }
+
 }

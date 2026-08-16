@@ -1,8 +1,7 @@
-package me.mallahajay43.campaignflow.audience.outbox;
+package me.mallahajay43.campaignflow.common.outbox;
 
 import lombok.RequiredArgsConstructor;
-import me.mallahajay43.campaignflow.audience.entity.OutboxEvent;
-import me.mallahajay43.campaignflow.audience.repository.OutboxEventRepository;
+import me.mallahajay43.campaignflow.common.entity.OutboxEvent;
 import me.mallahajay43.campaignflow.common.enums.EventAggregateType;
 import org.springframework.stereotype.Component;
 

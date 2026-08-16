@@ -1,5 +1,6 @@
 package me.mallahajay43.campaignflow.audience.mapper;
 
+import me.mallahajay43.campaignflow.audience.api.ContactProjection;
 import me.mallahajay43.campaignflow.audience.dto.request.CreateContactRequest;
 import me.mallahajay43.campaignflow.audience.dto.request.UpdateContactRequest;
 import me.mallahajay43.campaignflow.audience.dto.response.ContactResponse;
@@ -20,4 +21,6 @@ public interface ContactMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromRecord(UpdateContactRequest request, @MappingTarget Contact contact);
+
+    ContactProjection toProjectionEntity(Contact contact);
 }
